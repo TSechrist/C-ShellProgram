@@ -23,39 +23,50 @@
 #define PROMPT "myShell >> "
 #define PROMPTSIZE sizeof(PROMPT)
 
+int * parseString(char * newmyargv[256], char * newinput)
+{
+    int count = 0;
+    char* token = strtok(newinput, " ");
+    for(int i = 0; token != NULL; i++)
+    {
+//            printf("token: %s\n", token);
+        newmyargv[i] = token;
+        token = strtok(NULL, " ");
+        count++;
+    }
+//    printf("%d\n", ((int)newmyargc / 4));
+    return count;
+}
+
+
+
+
+
 int
 main(int argc, char** argv)
 {
-
-
-    int myargc;
-
-    char myargv[256];
+    int * myargc;
+    char * myargv[256];
     char input[256];
+    char username[256];
+    getlogin_r(username, 256);
 
-
-    while(strcmp(input, "exit"))
+    printf("%s-MYSHELL$ ", username);
+    fgets(input, 256, stdin);
+    while(strcmp(input, "exit\n"))
     {
 
-        gets(input);
-        int count = 1;
-        printf("input: %s\n",  input);
-        printf("strlen(input): %d\n", strlen(input));
+        myargc = parseString(myargv, input);
 
-        // Returns first token
-        char* token = strtok(input, " ");
-
-        // Keep printing tokens while one of the
-        // delimiters present in str[].
-        for(int i = 0; token != NULL; i++)
+        for(int i = 0; myargv[i] != NULL; i++)
         {
-            printf("token: %s\n", token);
-            myargv[i] = token;
-            printf("myargv[%d]: %s\n", i, &myargv[i]);
-            token = strtok(NULL, " ");
+            printf("myargv[%d]: %s\n", i, myargv[i]);
         }
 
-//        printf("myargv: %s\n", myargv[0]);
+        printf("myargc: %d\n", (int)myargc);
+
+        printf("%s-MYSHELL$ ", username);
+        fgets(input, 256, stdin);
 
     }
 
