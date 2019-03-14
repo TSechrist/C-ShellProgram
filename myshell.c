@@ -135,6 +135,65 @@ void executeLine(char * passedMyargv[BUFFERSIZE])
     }
 }
 
+void executeLinePipe(char * passedMyargv[BUFFERSIZE], int passedMyargc, int pos)
+{
+    printf("***DEBUG 1\n");
+
+    char * leftArgv[BUFFERSIZE];
+    char * rightArgv[BUFFERSIZE];
+
+    leftArgv[pos] = "\0";
+    rightArgv[passedMyargc] = "\0";
+
+    for(int i = 0; i < pos; i++)
+    {
+        leftArgv[i] = passedMyargv[i];
+        printf("leftarg: %s\n", leftArgv[i]);
+    }
+
+    for(int i = pos + 1; i < passedMyargc; i++)
+    {
+        rightArgv[i] = passedMyargv[i];
+        printf("rightarg: %s\n", rightArgv[i]);
+    }
+
+    printf("***DEBUG 2\n");
+
+    pid_t id;
+    int pipe_fd[2]; //0 read end and 1 write end
+
+    pipe(pipe_fd);
+
+    id = fork();
+    if(id == 0) {
+
+        printf("***DEBUG 3\n");
+
+        close(0);
+        dup(pipe_fd[0]);
+        close(pipe_fd[0]);
+        close(pipe_fd[1]);
+        executeLine(rightArgv);
+    }
+
+    id = fork();
+    if(id == 0) {
+
+        printf("***DEBUG 4\n");
+
+        close(1);
+        dup(pipe_fd[1]);
+        close(pipe_fd[0]);
+        close(pipe_fd[1]);
+        executeLine(leftArgv);
+    }
+
+    printf("***DEBUG 5\n");
+
+//    wait(0);
+
+}
+
 
 void printDir()
 {
@@ -165,8 +224,10 @@ main(int argc, char** argv)
     while(1)
     {
         int myargc = 0;
+        int pipeBool = 0;
         char * myargv[BUFFERSIZE] = {};
         char input[BUFFERSIZE] = "";
+
 
         printf("%s-%s ", username, PROMPT);
         fgets(input, BUFFERSIZE, stdin);
@@ -179,7 +240,11 @@ main(int argc, char** argv)
 
         myargc = parseString(myargv, input);
 
-        if(strcmp(myargv[0], "pwd") == 0)
+        if(strcmp(myargv[0], "\n") == 0)
+        {
+            continue;
+        }
+        else if(strcmp(myargv[0], "pwd") == 0)
         {
             printDir();
         }
@@ -189,7 +254,18 @@ main(int argc, char** argv)
         }
         else
         {
-            executeLine(myargv);
+            for(int i = 0; i < myargc; i++)
+            {
+                if(strcmp(myargv[i], "|") == 0)
+                {
+                    pipeBool = 1;
+                    executeLinePipe(myargv, myargc, i);
+                }
+            }
+            if(!pipeBool)
+            {
+                executeLine(myargv);
+            }
         }
     }
 
