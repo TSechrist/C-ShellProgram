@@ -39,19 +39,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/steph/Downloads/clion-2018.3.3/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = /home/tom/Downloads/clion-2018.3.4/bin/cmake/linux/bin/cmake
 
 # The command to remove a file.
-RM = /home/steph/Downloads/clion-2018.3.3/bin/cmake/linux/bin/cmake -E remove -f
+RM = /home/tom/Downloads/clion-2018.3.4/bin/cmake/linux/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/steph/csc415/csc415-p3-TSechrist
+CMAKE_SOURCE_DIR = /home/tom/Spring2019/csc415-p3-TSechrist
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/steph/csc415/csc415-p3-TSechrist/cmake-build-debug
+CMAKE_BINARY_DIR = /home/tom/Spring2019/csc415-p3-TSechrist/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -59,7 +59,7 @@ CMAKE_BINARY_DIR = /home/steph/csc415/csc415-p3-TSechrist/cmake-build-debug
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/home/steph/Downloads/clion-2018.3.3/bin/cmake/linux/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/home/tom/Downloads/clion-2018.3.4/bin/cmake/linux/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -70,7 +70,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/home/steph/Downloads/clion-2018.3.3/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	/home/tom/Downloads/clion-2018.3.4/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/steph/csc415/csc415-p3-TSechrist/cmake-build-debug/CMakeFiles /home/steph/csc415/csc415-p3-TSechrist/cmake-build-debug/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/tom/Spring2019/csc415-p3-TSechrist/cmake-build-debug/CMakeFiles /home/tom/Spring2019/csc415-p3-TSechrist/cmake-build-debug/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/steph/csc415/csc415-p3-TSechrist/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/tom/Spring2019/csc415-p3-TSechrist/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -111,17 +111,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named csc415_p3
+# Target rules for targets named csc415_p3_TSechrist
 
 # Build rule for target.
-csc415_p3: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 csc415_p3
-.PHONY : csc415_p3
+csc415_p3_TSechrist: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 csc415_p3_TSechrist
+.PHONY : csc415_p3_TSechrist
 
 # fast build rule for target.
-csc415_p3/fast:
-	$(MAKE) -f CMakeFiles/csc415_p3.dir/build.make CMakeFiles/csc415_p3.dir/build
-.PHONY : csc415_p3/fast
+csc415_p3_TSechrist/fast:
+	$(MAKE) -f CMakeFiles/csc415_p3_TSechrist.dir/build.make CMakeFiles/csc415_p3_TSechrist.dir/build
+.PHONY : csc415_p3_TSechrist/fast
 
 myshell.o: myshell.c.o
 
@@ -129,7 +129,7 @@ myshell.o: myshell.c.o
 
 # target to build an object file
 myshell.c.o:
-	$(MAKE) -f CMakeFiles/csc415_p3.dir/build.make CMakeFiles/csc415_p3.dir/myshell.c.o
+	$(MAKE) -f CMakeFiles/csc415_p3_TSechrist.dir/build.make CMakeFiles/csc415_p3_TSechrist.dir/myshell.c.o
 .PHONY : myshell.c.o
 
 myshell.i: myshell.c.i
@@ -138,7 +138,7 @@ myshell.i: myshell.c.i
 
 # target to preprocess a source file
 myshell.c.i:
-	$(MAKE) -f CMakeFiles/csc415_p3.dir/build.make CMakeFiles/csc415_p3.dir/myshell.c.i
+	$(MAKE) -f CMakeFiles/csc415_p3_TSechrist.dir/build.make CMakeFiles/csc415_p3_TSechrist.dir/myshell.c.i
 .PHONY : myshell.c.i
 
 myshell.s: myshell.c.s
@@ -147,7 +147,7 @@ myshell.s: myshell.c.s
 
 # target to generate assembly for a file
 myshell.c.s:
-	$(MAKE) -f CMakeFiles/csc415_p3.dir/build.make CMakeFiles/csc415_p3.dir/myshell.c.s
+	$(MAKE) -f CMakeFiles/csc415_p3_TSechrist.dir/build.make CMakeFiles/csc415_p3_TSechrist.dir/myshell.c.s
 .PHONY : myshell.c.s
 
 # Help Target
@@ -157,7 +157,7 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
-	@echo "... csc415_p3"
+	@echo "... csc415_p3_TSechrist"
 	@echo "... edit_cache"
 	@echo "... myshell.o"
 	@echo "... myshell.i"

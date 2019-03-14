@@ -16,6 +16,7 @@
 #include <sys/stat.h>
 #include <sys/wait.h>
 #include <fcntl.h>
+#include <stdbool.h>
 
 /* CANNOT BE CHANGED */
 #define BUFFERSIZE 256
@@ -23,60 +24,63 @@
 #define PROMPT "myShell >> "
 #define PROMPTSIZE sizeof(PROMPT)
 
-int * parseString(char * newmyargv[256], char * newinput)
+int parseString(char * newmyargv[BUFFERSIZE], char * newinput)
 {
     int count = 0;
     char* token = strtok(newinput, " ");
     for(int i = 0; token != NULL; i++)
     {
-//            printf("token: %s\n", token);
         newmyargv[i] = token;
         token = strtok(NULL, " ");
         count++;
     }
-//    printf("%d\n", ((int)newmyargc / 4));
     return count;
 }
-
-
-
 
 
 int
 main(int argc, char** argv)
 {
-    int * myargc;
-    char * myargv[256];
-    char input[256];
-    char username[256];
-    getlogin_r(username, 256);
+    int myargc;
+    char * myargv[BUFFERSIZE];
+    char * myprogram[BUFFERSIZE];
+    char input[BUFFERSIZE] = "";
+    char username[BUFFERSIZE];
+    getlogin_r(username, BUFFERSIZE);
 
-    printf("%s-MYSHELL$ ", username);
-    fgets(input, 256, stdin);
-    while(strcmp(input, "exit\n"))
+    while(1)
     {
+//        printf("%s\n", input);
+        printf("%s-%s ", username, PROMPT);
+        fgets(input, BUFFERSIZE, stdin);
 
-        myargc = parseString(myargv, input);
-
-        for(int i = 0; myargv[i] != NULL; i++)
+        if(strcmp(input, "exit\n") == 0)
         {
-            printf("myargv[%d]: %s\n", i, myargv[i]);
+            exit(0);
         }
 
-        printf("myargc: %d\n", (int)myargc);
+        pid_t id;
+        id = fork();
 
-        printf("%s-MYSHELL$ ", username);
-        fgets(input, 256, stdin);
+        if(id > 0)
+        {
+//            printf("Parent\n");
+            wait(0);
+        }else if (id == 0){
+
+//            printf("Child\n");
+            strtok(input, "\n");
+            myprogram[0] = myargv[0];
+            myargc = parseString(myargv, input);
+            execvp(myargv[0], myargv);
+            perror("exec failed");
+
+        }else{
+            perror("Error with fork");
+            return 0;
+        }
 
     }
-
-
-
-
-
-
-
-
 
 
 
@@ -129,10 +133,6 @@ main(int argc, char** argv)
 ////        dup(pfd(0));
 //        close(pfd(0));
 //        close(pfd(1));
-
-
-
-
 
 
 return 0;
