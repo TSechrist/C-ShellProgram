@@ -50,7 +50,6 @@ main(int argc, char** argv)
 
     while(1)
     {
-//        printf("%s\n", input);
         printf("%s-%s ", username, PROMPT);
         fgets(input, BUFFERSIZE, stdin);
 
@@ -74,6 +73,7 @@ main(int argc, char** argv)
             myargc = parseString(myargv, input);
             execvp(myargv[0], myargv);
             perror("exec failed");
+            exit(52);
 
         }else{
             perror("Error with fork");
