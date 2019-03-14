@@ -40,17 +40,21 @@ int parseString(char * newmyargv[BUFFERSIZE], char * newinput)
 
 void executeLine(char * passedMyargv[BUFFERSIZE])
 {
+
     pid_t id;
     id = fork();
 
-    if(id > 0)
+    if (id > 0)
     {
 //        printf("Parent\n");
         wait(0);
-    }else if (id == 0){
+    }
+    else if (id == 0)
+    {
 //        printf("Child\n");
 
         int inputBool = 0;
+        int truncOutputBool = 0;
         int outputBool = 0;
         char inputFile[BUFFERSIZE];
         char outputFile[BUFFERSIZE];
@@ -61,55 +65,76 @@ void executeLine(char * passedMyargv[BUFFERSIZE])
          * overflow to fix it to make it work.
          */
 
-        for(int i = 0; passedMyargv[i] != NULL; i++)
+        for (int i = 0; passedMyargv[i] != '\0'; i++)
         {
-            if(strcmp(passedMyargv[i], "<") == 0)
+            if (strcmp(passedMyargv[i], "<") == 0)
             {
+//                printf("Inside input redirection bool change\n");
                 inputBool = 1;
                 passedMyargv[i] = NULL;
                 strcpy(inputFile, passedMyargv[i + 1]);
             }
-            if(strcmp(passedMyargv[i], ">") == 0)
+            else if (strcmp(passedMyargv[i], ">") == 0)
             {
+//                printf("Inside truncate output redirection bool change\n");
+                truncOutputBool = 1;
+                passedMyargv[i] = NULL;
+                strcpy(outputFile, passedMyargv[i + 1]);
+            }
+            else if (strcmp(passedMyargv[i], ">>") == 0)
+            {
+//                printf("Inside output redirection bool change\n");
                 outputBool = 1;
                 passedMyargv[i] = NULL;
                 strcpy(outputFile, passedMyargv[i + 1]);
             }
         }
 
-        if(inputBool)
-        {
-            int fin;
-            if( 0 > (fin = open(inputFile, O_RDONLY) ) )
+            if (inputBool)
             {
-                perror( "open for read failed");
-                exit( EXIT_FAILURE );
+                int fin;
+                if (0 > (fin = open(inputFile, O_RDONLY))) {
+                    perror("open for read failed\n");
+                    exit(EXIT_FAILURE);
+                }
+                dup2(fin, STDIN_FILENO);
+                close(fin);
             }
-            dup2(fin, STDIN_FILENO);
-            close(fin);
-        }
 
-        if(outputBool)
-        {
-            int fout;
-            if( 0 > (fout = open(outputFile, O_WRONLY | O_CREAT | O_TRUNC, 0666) ) )
+            if (truncOutputBool)
             {
-                perror( "open for write failed");
-                exit( EXIT_FAILURE );
+                int truncfout;
+                if (0 > (truncfout = open(outputFile, O_WRONLY | O_CREAT | O_TRUNC, 0666))) {
+                    perror("open for write failed\n");
+                    exit(EXIT_FAILURE);
+                }
+                dup2(truncfout, STDOUT_FILENO);
+                close(truncfout);
             }
-            dup2(fout, STDOUT_FILENO);
-            close(fout);
-        }
 
-        execvp(passedMyargv[0], passedMyargv);
-        perror("exec failed");
-        exit( EXIT_FAILURE );
+            if (outputBool)
+            {
+                int fout;
+                if (0 > (fout = open(outputFile, O_WRONLY | O_CREAT | O_APPEND, 0666))) {
+                    perror("open for write failed\n");
+                    exit(EXIT_FAILURE);
+                }
+                dup2(fout, STDOUT_FILENO);
+                close(fout);
+            }
 
-    }else{
+            execvp(passedMyargv[0], passedMyargv);
+            perror("exec failed");
+            exit(EXIT_FAILURE);
+
+    }
+    else
+    {
         perror("Error with fork");
         exit(52);
     }
 }
+
 
 void printDir()
 {
@@ -200,7 +225,7 @@ main(int argc, char** argv)
 //    }
 //    wait(0);
 //
-////    id = fork();
+//    id = fork();
 //
 //    if(id > 0)
 //    {
@@ -212,11 +237,11 @@ main(int argc, char** argv)
 //    {
 //        printf("Child: %d\n", getpid());
 //        execlp("ls", "ls", NULL);
-////        execvp(&myargv[0], myargv);
-////        strtok()
+//        execvp(&myargv[0], myargv);
+//        strtok()
 //
-////        close(0);
-////        dup(pfd(0));
+//        close(0);
+//        dup(pfd(0));
 //        close(pfd(0));
 //        close(pfd(1));
 

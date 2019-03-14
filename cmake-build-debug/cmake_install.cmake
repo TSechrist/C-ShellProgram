@@ -1,4 +1,4 @@
-# Install script for directory: /home/tom/Spring2019/csc415-p3-TSechrist
+# Install script for directory: /home/steph/csc415/csc415-p3-TSechrist
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/tom/Spring2019/csc415-p3-TSechrist/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/steph/csc415/csc415-p3-TSechrist/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

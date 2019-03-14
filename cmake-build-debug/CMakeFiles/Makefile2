@@ -50,19 +50,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/tom/Downloads/clion-2018.3.4/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = /home/steph/Downloads/clion-2018.3.3/bin/cmake/linux/bin/cmake
 
 # The command to remove a file.
-RM = /home/tom/Downloads/clion-2018.3.4/bin/cmake/linux/bin/cmake -E remove -f
+RM = /home/steph/Downloads/clion-2018.3.3/bin/cmake/linux/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/tom/Spring2019/csc415-p3-TSechrist
+CMAKE_SOURCE_DIR = /home/steph/csc415/csc415-p3-TSechrist
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/tom/Spring2019/csc415-p3-TSechrist/cmake-build-debug
+CMAKE_BINARY_DIR = /home/steph/csc415/csc415-p3-TSechrist/cmake-build-debug
 
 #=============================================================================
 # Target rules for target CMakeFiles/csc415_p3_TSechrist.dir
@@ -71,7 +71,7 @@ CMAKE_BINARY_DIR = /home/tom/Spring2019/csc415-p3-TSechrist/cmake-build-debug
 CMakeFiles/csc415_p3_TSechrist.dir/all:
 	$(MAKE) -f CMakeFiles/csc415_p3_TSechrist.dir/build.make CMakeFiles/csc415_p3_TSechrist.dir/depend
 	$(MAKE) -f CMakeFiles/csc415_p3_TSechrist.dir/build.make CMakeFiles/csc415_p3_TSechrist.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/tom/Spring2019/csc415-p3-TSechrist/cmake-build-debug/CMakeFiles --progress-num=1,2 "Built target csc415_p3_TSechrist"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/steph/csc415/csc415-p3-TSechrist/cmake-build-debug/CMakeFiles --progress-num=1,2 "Built target csc415_p3_TSechrist"
 .PHONY : CMakeFiles/csc415_p3_TSechrist.dir/all
 
 # Include target in all.
@@ -81,9 +81,9 @@ all: CMakeFiles/csc415_p3_TSechrist.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/csc415_p3_TSechrist.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/tom/Spring2019/csc415-p3-TSechrist/cmake-build-debug/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/steph/csc415/csc415-p3-TSechrist/cmake-build-debug/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/csc415_p3_TSechrist.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/tom/Spring2019/csc415-p3-TSechrist/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/steph/csc415/csc415-p3-TSechrist/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/csc415_p3_TSechrist.dir/rule
 
 # Convenience name for target.
