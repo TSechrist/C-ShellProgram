@@ -28,8 +28,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/myshell.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="386">
-              <caret line="192" column="2" selection-start-line="192" selection-start-column="2" selection-end-line="192" selection-end-column="2" />
+            <state relative-caret-position="165">
+              <caret line="173" column="16" selection-start-line="173" selection-start-column="16" selection-end-line="173" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -129,10 +129,11 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="46874000" />
+    <option name="totallyTimeSpent" value="51931000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="64" y="-11" width="1857" height="962" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.06909895" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -165,8 +166,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/myshell.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="386">
-          <caret line="192" column="2" selection-start-line="192" selection-start-column="2" selection-end-line="192" selection-end-column="2" />
+        <state relative-caret-position="165">
+          <caret line="173" column="16" selection-start-line="173" selection-start-column="16" selection-end-line="173" selection-end-column="16" />
         </state>
       </provider>
     </entry>

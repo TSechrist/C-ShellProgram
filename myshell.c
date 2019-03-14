@@ -137,13 +137,61 @@ void executeLine(char * passedMyargv[BUFFERSIZE])
 
 void executeLinePipe(char * passedMyargv[BUFFERSIZE], int passedMyargc, int pos)
 {
+
+
+    char * leftArgv[BUFFERSIZE] = {"ls", "-l", NULL};
+    char * rightArgv[BUFFERSIZE]= {"wc", "-l", NULL};
+
+    pid_t id;
+    int pipe_fd[2]; //0 read end and 1 write end
+
+    pipe(pipe_fd);
+
+    id = fork();
+    if(id < 0)
+    {
+        perror("Error Forking");
+        exit(0);
+    }
+    else if(id == 0) {
+
+        printf("In Child\n");
+        close(0);
+        dup2(pipe_fd[0], 0);
+        close(pipe_fd[0]);
+        close(pipe_fd[1]);
+        execvp(rightArgv[0], rightArgv);
+    }
+
+    id = fork();
+    if(id < 0)
+    {
+        perror("Error Forking");
+        exit(0);
+    }
+    else if(id == 0)
+    {
+        wait(0);
+        printf("In Parent\n");
+        close(1);
+        dup2(pipe_fd[1], 1);
+        close(pipe_fd[0]);
+        close(pipe_fd[1]);
+        execvp(leftArgv[0], leftArgv);
+    }
+
+    printf("***Before wait\n");
+    wait(0);
+    printf("***After wait\n");
+
+    /*
     printf("***DEBUG 1\n");
 
     char * leftArgv[BUFFERSIZE];
     char * rightArgv[BUFFERSIZE];
 
-    leftArgv[pos] = "\0";
-    rightArgv[passedMyargc] = "\0";
+    leftArgv[pos] = NULL;
+    rightArgv[passedMyargc] = NULL;
 
     for(int i = 0; i < pos; i++)
     {
@@ -173,7 +221,7 @@ void executeLinePipe(char * passedMyargv[BUFFERSIZE], int passedMyargc, int pos)
         dup(pipe_fd[0]);
         close(pipe_fd[0]);
         close(pipe_fd[1]);
-        executeLine(rightArgv);
+        execvp(rightArgv[0], rightArgv);
     }
 
     id = fork();
@@ -185,13 +233,13 @@ void executeLinePipe(char * passedMyargv[BUFFERSIZE], int passedMyargc, int pos)
         dup(pipe_fd[1]);
         close(pipe_fd[0]);
         close(pipe_fd[1]);
-        executeLine(leftArgv);
+        execvp(leftArgv[0], leftArgv);
     }
 
     printf("***DEBUG 5\n");
 
-//    wait(0);
-
+    wait(0);
+*/
 }
 
 
@@ -223,11 +271,11 @@ main(int argc, char** argv)
 
     while(1)
     {
+
         int myargc = 0;
         int pipeBool = 0;
         char * myargv[BUFFERSIZE] = {};
         char input[BUFFERSIZE] = "";
-
 
         printf("%s-%s ", username, PROMPT);
         fgets(input, BUFFERSIZE, stdin);
