@@ -12,7 +12,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="83fd2128-1ab3-43c6-928f-10b394fa19ca" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/csc415_p3_TSechrist" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/csc415_p3_TSechrist" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myshell" beforeDir="false" afterPath="$PROJECT_DIR$/myshell" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myshell.c" beforeDir="false" afterPath="$PROJECT_DIR$/myshell.c" afterDir="false" />
     </list>
@@ -29,8 +28,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/myshell.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="44" selection-start-line="44" selection-start-column="2" selection-end-line="48" selection-end-column="7" />
+            <state relative-caret-position="249">
+              <caret line="77" column="26" selection-start-line="77" selection-start-column="26" selection-end-line="77" selection-end-column="26" />
               <folding>
                 <element signature="e#596#615#0" expanded="true" />
               </folding>
@@ -127,12 +126,12 @@
       <workItem from="1552511152350" duration="4481000" />
       <workItem from="1552594404889" duration="549000" />
       <workItem from="1552594968079" duration="4873000" />
-      <workItem from="1552678871588" duration="1797000" />
+      <workItem from="1552678871588" duration="3638000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29196000" />
+    <option name="totallyTimeSpent" value="31037000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="928" height="952" extended-state="4" />
@@ -169,8 +168,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/myshell.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="44" selection-start-line="44" selection-start-column="2" selection-end-line="48" selection-end-column="7" />
+        <state relative-caret-position="249">
+          <caret line="77" column="26" selection-start-line="77" selection-start-column="26" selection-end-line="77" selection-end-column="26" />
           <folding>
             <element signature="e#596#615#0" expanded="true" />
           </folding>

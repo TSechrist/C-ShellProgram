@@ -60,6 +60,25 @@ void executeLine(char * passedmyargv[BUFFERSIZE])
     }
 }
 
+void printDir()
+{
+    char currdir[BUFFERSIZE];
+    getcwd(currdir, sizeof(currdir));
+    printf("current working directory: %s\n", currdir);
+}
+
+void changeDir(char * passedmyargv[BUFFERSIZE])
+{
+    if(passedmyargv[1] != NULL)
+    {
+        chdir(passedmyargv[1]);
+    }
+    else
+    {
+        chdir(getenv("HOME"));
+    }
+}
+
 int
 main(int argc, char** argv)
 {
@@ -79,13 +98,23 @@ main(int argc, char** argv)
 
         if(strcmp(input, "exit") == 0)
         {
-            exit(0);
+            break;
         }
 
         myargc = parseString(myargv, input);
 
-        executeLine(myargv);
-
+        if(strcmp(myargv[0], "pwd") == 0)
+        {
+            printDir();
+        }
+        else if(strcmp(myargv[0], "cd") == 0)
+        {
+            changeDir(myargv);
+        }
+        else
+        {
+            executeLine(myargv);
+        }
     }
 
 
