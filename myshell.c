@@ -24,6 +24,7 @@
 #define PROMPT "myShell >> "
 #define PROMPTSIZE sizeof(PROMPT)
 
+
 int parseString(char * newmyargv[BUFFERSIZE], char * newinput)
 {
     int count = 0;
@@ -37,48 +38,53 @@ int parseString(char * newmyargv[BUFFERSIZE], char * newinput)
     return count;
 }
 
+void executeLine(char * passedmyargv[BUFFERSIZE])
+{
+    pid_t id;
+    id = fork();
+
+    if(id > 0)
+    {
+//        printf("Parent\n");
+        wait(0);
+    }else if (id == 0){
+
+//        printf("Child\n");
+        execvp(passedmyargv[0], passedmyargv);
+        perror("exec failed");
+        exit(52);
+
+    }else{
+        perror("Error with fork");
+        exit(52);
+    }
+}
 
 int
 main(int argc, char** argv)
 {
-    int myargc;
-    char * myargv[BUFFERSIZE];
-    char * myprogram[BUFFERSIZE];
-    char input[BUFFERSIZE] = "";
+
     char username[BUFFERSIZE];
     getlogin_r(username, BUFFERSIZE);
 
     while(1)
     {
+        int myargc = 0;
+        char * myargv[BUFFERSIZE] = {};
+        char input[BUFFERSIZE] = "";
+
         printf("%s-%s ", username, PROMPT);
         fgets(input, BUFFERSIZE, stdin);
+        strtok(input, "\n");
 
-        if(strcmp(input, "exit\n") == 0)
+        if(strcmp(input, "exit") == 0)
         {
             exit(0);
         }
 
-        pid_t id;
-        id = fork();
+        myargc = parseString(myargv, input);
 
-        if(id > 0)
-        {
-//            printf("Parent\n");
-            wait(0);
-        }else if (id == 0){
-
-//            printf("Child\n");
-            strtok(input, "\n");
-            myprogram[0] = myargv[0];
-            myargc = parseString(myargv, input);
-            execvp(myargv[0], myargv);
-            perror("exec failed");
-            exit(52);
-
-        }else{
-            perror("Error with fork");
-            return 0;
-        }
+        executeLine(myargv);
 
     }
 
