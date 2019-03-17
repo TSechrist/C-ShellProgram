@@ -38,7 +38,7 @@ int parseString(char * newmyargv[BUFFERSIZE], char * newinput)
     return count;
 }
 
-void executeLine(char * passedmyargv[BUFFERSIZE])
+void executeLine(char * passedMyargv[BUFFERSIZE])
 {
     pid_t id;
     id = fork();
@@ -48,11 +48,62 @@ void executeLine(char * passedmyargv[BUFFERSIZE])
 //        printf("Parent\n");
         wait(0);
     }else if (id == 0){
-
 //        printf("Child\n");
-        execvp(passedmyargv[0], passedmyargv);
+
+        int inputBool = 0;
+        int outputBool = 0;
+        char inputFile[BUFFERSIZE];
+        char outputFile[BUFFERSIZE];
+
+        /*
+         * The logic for this redirect function is taken from my
+         * file copy assignment and I used some posts on stack
+         * overflow to fix it to make it work.
+         */
+
+        for(int i = 0; passedMyargv[i] != NULL; i++)
+        {
+            if(strcmp(passedMyargv[i], "<") == 0)
+            {
+                inputBool = 1;
+                passedMyargv[i] = NULL;
+                strcpy(inputFile, passedMyargv[i + 1]);
+            }
+            if(strcmp(passedMyargv[i], ">") == 0)
+            {
+                outputBool = 1;
+                passedMyargv[i] = NULL;
+                strcpy(outputFile, passedMyargv[i + 1]);
+            }
+        }
+
+        if(inputBool)
+        {
+            int fin;
+            if( 0 > (fin = open(inputFile, O_RDONLY) ) )
+            {
+                perror( "open for read failed");
+                exit( EXIT_FAILURE );
+            }
+            dup2(fin, STDIN_FILENO);
+            close(fin);
+        }
+
+        if(outputBool)
+        {
+            int fout;
+            if( 0 > (fout = open(outputFile, O_WRONLY | O_CREAT | O_TRUNC, 0666) ) )
+            {
+                perror( "open for write failed");
+                exit( EXIT_FAILURE );
+            }
+            dup2(fout, STDOUT_FILENO);
+            close(fout);
+        }
+
+        execvp(passedMyargv[0], passedMyargv);
         perror("exec failed");
-        exit(52);
+        exit( EXIT_FAILURE );
 
     }else{
         perror("Error with fork");

@@ -28,8 +28,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/myshell.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="249">
-              <caret line="77" column="26" selection-start-line="77" selection-start-column="26" selection-end-line="77" selection-end-column="26" />
+            <state relative-caret-position="698">
+              <caret line="104" column="30" lean-forward="true" selection-start-line="104" selection-start-column="30" selection-end-line="104" selection-end-column="30" />
               <folding>
                 <element signature="e#596#615#0" expanded="true" />
               </folding>
@@ -70,6 +70,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -81,7 +82,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -127,17 +127,18 @@
       <workItem from="1552594404889" duration="549000" />
       <workItem from="1552594968079" duration="4873000" />
       <workItem from="1552678871588" duration="3638000" />
+      <workItem from="1552852635452" duration="3483000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="31037000" />
+    <option name="totallyTimeSpent" value="34520000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="928" height="952" extended-state="4" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.207483" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21201815" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -168,8 +169,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/myshell.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="77" column="26" selection-start-line="77" selection-start-column="26" selection-end-line="77" selection-end-column="26" />
+        <state relative-caret-position="698">
+          <caret line="104" column="30" lean-forward="true" selection-start-line="104" selection-start-column="30" selection-end-line="104" selection-end-column="30" />
           <folding>
             <element signature="e#596#615#0" expanded="true" />
           </folding>
