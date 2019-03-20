@@ -24,7 +24,8 @@
 #define PROMPT "myShell >> "
 #define PROMPTSIZE sizeof(PROMPT)
 
-
+//This is a simple function that will parse a string given to it by
+//a space dimiliter. It will return how large the array is.
 int parseString(char * newmyargv[BUFFERSIZE], char * newinput)
 {
     int count = 0;
@@ -38,6 +39,8 @@ int parseString(char * newmyargv[BUFFERSIZE], char * newinput)
     return count;
 }
 
+//This function will execute a passed in argv array list and execute
+//it with all of its arguments. It will check for redirection.
 void executeLine(char * passedMyargv[BUFFERSIZE])
 {
 
@@ -135,35 +138,31 @@ void executeLine(char * passedMyargv[BUFFERSIZE])
     }
 }
 
+//This function will be called if there is a pipe in the inputted command.
+//It will seperate the two sides of the pipe into seperate argv arrays
+//and execute them with a pipe connecting them.
 void executeLinePipe(char * passedMyargv[BUFFERSIZE], int passedMyargc, int pos)
 {
 
+    char * leftArgv[BUFFERSIZE];
+    char * rightArgv[BUFFERSIZE];
 
-    char * leftArgv[BUFFERSIZE] = {"ls", "-l", NULL};
-    char * rightArgv[BUFFERSIZE]= {"wc", "-l", NULL};
+    for(int i = 0; i < pos; i++)
+    {
+        leftArgv[i] = passedMyargv[i];
+    }
+    for(int i = pos + 1; i < passedMyargc; i++)
+    {
+        rightArgv[i - (pos + 1)] = passedMyargv[i];
+    }
+
+    leftArgv[pos] = NULL;
 
     pid_t id;
-    int pipe_fd[2]; //0 read end and 1 write end
-
+    int pipe_fd[2], status; //0 read end and 1 write end
     pipe(pipe_fd);
-
     id = fork();
-    if(id < 0)
-    {
-        perror("Error Forking");
-        exit(0);
-    }
-    else if(id == 0) {
 
-        printf("In Child\n");
-        close(0);
-        dup2(pipe_fd[0], 0);
-        close(pipe_fd[0]);
-        close(pipe_fd[1]);
-        execvp(rightArgv[0], rightArgv);
-    }
-
-    id = fork();
     if(id < 0)
     {
         perror("Error Forking");
@@ -171,78 +170,42 @@ void executeLinePipe(char * passedMyargv[BUFFERSIZE], int passedMyargc, int pos)
     }
     else if(id == 0)
     {
-        wait(0);
-        printf("In Parent\n");
-        close(1);
-        dup2(pipe_fd[1], 1);
-        close(pipe_fd[0]);
-        close(pipe_fd[1]);
-        execvp(leftArgv[0], leftArgv);
-    }
-
-    printf("***Before wait\n");
-    wait(0);
-    printf("***After wait\n");
-
-    /*
-    printf("***DEBUG 1\n");
-
-    char * leftArgv[BUFFERSIZE];
-    char * rightArgv[BUFFERSIZE];
-
-    leftArgv[pos] = NULL;
-    rightArgv[passedMyargc] = NULL;
-
-    for(int i = 0; i < pos; i++)
-    {
-        leftArgv[i] = passedMyargv[i];
-        printf("leftarg: %s\n", leftArgv[i]);
-    }
-
-    for(int i = pos + 1; i < passedMyargc; i++)
-    {
-        rightArgv[i] = passedMyargv[i];
-        printf("rightarg: %s\n", rightArgv[i]);
-    }
-
-    printf("***DEBUG 2\n");
-
-    pid_t id;
-    int pipe_fd[2]; //0 read end and 1 write end
-
-    pipe(pipe_fd);
-
-    id = fork();
-    if(id == 0) {
-
-        printf("***DEBUG 3\n");
-
+//        printf("pid in Child: %d\n", id);
         close(0);
         dup(pipe_fd[0]);
         close(pipe_fd[0]);
         close(pipe_fd[1]);
         execvp(rightArgv[0], rightArgv);
+        perror("Right side failure");
     }
+    else
+    {
+        id = fork();
 
-    id = fork();
-    if(id == 0) {
-
-        printf("***DEBUG 4\n");
-
-        close(1);
-        dup(pipe_fd[1]);
-        close(pipe_fd[0]);
-        close(pipe_fd[1]);
-        execvp(leftArgv[0], leftArgv);
+        if(id < 0)
+        {
+            perror("Error Forking");
+            exit(0);
+        }
+        else if (id == 0) {
+            //        printf("In parent\n");
+            close(1);
+            dup(pipe_fd[1]);
+            close(pipe_fd[0]);
+            close(pipe_fd[1]);
+            execvp(leftArgv[0], leftArgv);
+            perror("Left side failure");
+        }
+        else
+        {
+            close(pipe_fd[0]);
+            close(pipe_fd[1]);
+            waitpid(id, &status, 0);
+        }
     }
-
-    printf("***DEBUG 5\n");
-
-    wait(0);
-*/
 }
 
-
+//Calling the getcwd command to tell our current working directory
 void printDir()
 {
     char currdir[BUFFERSIZE];
@@ -250,6 +213,7 @@ void printDir()
     printf("current working directory: %s\n", currdir);
 }
 
+//Changing our current working directory.
 void changeDir(char * passedmyargv[BUFFERSIZE])
 {
     if(passedmyargv[1] != NULL)
@@ -262,6 +226,9 @@ void changeDir(char * passedmyargv[BUFFERSIZE])
     }
 }
 
+//Main function that has an endless while loop to keep gathering user input.
+//You can end the loop by typing exit. We check user input and call the
+//functions needed.
 int
 main(int argc, char** argv)
 {
@@ -271,7 +238,7 @@ main(int argc, char** argv)
 
     while(1)
     {
-
+        wait(NULL);
         int myargc = 0;
         int pipeBool = 0;
         char * myargv[BUFFERSIZE] = {};
@@ -283,6 +250,7 @@ main(int argc, char** argv)
         fgets(input, BUFFERSIZE, stdin);
         strtok(input, "\n");
 
+        //This will quit the program
         if(strcmp(input, "exit") == 0)
         {
             break;
@@ -304,6 +272,7 @@ main(int argc, char** argv)
         }
         else
         {
+            //Checking input for a pipe
             for(int i = 0; i < myargc; i++)
             {
                 if(strcmp(myargv[i], "|") == 0)
@@ -312,65 +281,12 @@ main(int argc, char** argv)
                     executeLinePipe(myargv, myargc, i);
                 }
             }
-            if(!pipeBool)
+            if(pipeBool == 0)
             {
                 executeLine(myargv);
             }
         }
     }
-
-
-
-    //int execvp
-
-//    pid_t id;
-//    int pipe_fd[2]; //0 read end and 1 write end
-//
-//    char* left_side[] = {"ls", "-l", "/", NULL};
-//    char* right_side[] = {"wc", "-l", NULL};
-//    char* right_right_side[] = {"wc", "-c", NULL};
-//
-//    pipe(pipe_fd);
-//
-//    id = fork();
-//    if(id == 0) {
-//        close(0);
-//        dup(pipe_fd[0]);
-//        close(pipe_fd[0]);
-//        close(pipe_fd[1]);
-//        execvp(right_side[0], right_side);
-//    }
-//
-//    id = fork();
-//    if(id == 0) {
-//        close(1);
-//        dup(pipe_fd[1]);
-//        close(pipe_fd[0]);
-//        close(pipe_fd[1]);
-//        execvp(left_side[0], left_side);
-//    }
-//    wait(0);
-//
-//    id = fork();
-//
-//    if(id > 0)
-//    {
-//        printf("Parent: %d\n", getpid());
-//        wait(0);
-//
-//    }
-//    else if(id == 0)
-//    {
-//        printf("Child: %d\n", getpid());
-//        execlp("ls", "ls", NULL);
-//        execvp(&myargv[0], myargv);
-//        strtok()
-//
-//        close(0);
-//        dup(pfd(0));
-//        close(pfd(0));
-//        close(pfd(1));
-
 
 return 0;
 }
