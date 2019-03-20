@@ -276,8 +276,10 @@ main(int argc, char** argv)
         int pipeBool = 0;
         char * myargv[BUFFERSIZE] = {};
         char input[BUFFERSIZE] = "";
+        char currdir[BUFFERSIZE];
+        getcwd(currdir, sizeof(currdir));
 
-        printf("%s-%s ", username, PROMPT);
+        printf("%s-myshell %s >> ", username, currdir);
         fgets(input, BUFFERSIZE, stdin);
         strtok(input, "\n");
 

@@ -12,7 +12,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="83fd2128-1ab3-43c6-928f-10b394fa19ca" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/myshell" beforeDir="false" afterPath="$PROJECT_DIR$/myshell" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myshell.c" beforeDir="false" afterPath="$PROJECT_DIR$/myshell.c" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
@@ -28,8 +27,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/myshell.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="173" column="16" selection-start-line="173" selection-start-column="16" selection-end-line="173" selection-end-column="16" />
+            <state relative-caret-position="324">
+              <caret line="298" column="23" selection-start-line="298" selection-start-column="23" selection-end-line="298" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -57,7 +56,7 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="4">
-    <option name="x" value="65" />
+    <option name="x" value="992" />
     <option name="y" value="24" />
     <option name="width" value="928" />
     <option name="height" value="952" />
@@ -125,17 +124,18 @@
       <workItem from="1552594968079" duration="4873000" />
       <workItem from="1552678871588" duration="3638000" />
       <workItem from="1552852635452" duration="3483000" />
+      <workItem from="1553039682500" duration="490000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="51931000" />
+    <option name="totallyTimeSpent" value="52421000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="64" y="-11" width="1857" height="962" extended-state="6" />
+    <frame x="992" y="24" width="928" height="952" extended-state="4" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.06909895" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25963718" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -166,8 +166,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/myshell.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="173" column="16" selection-start-line="173" selection-start-column="16" selection-end-line="173" selection-end-column="16" />
+        <state relative-caret-position="324">
+          <caret line="298" column="23" selection-start-line="298" selection-start-column="23" selection-end-line="298" selection-end-column="23" />
         </state>
       </provider>
     </entry>
