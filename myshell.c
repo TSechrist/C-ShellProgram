@@ -188,7 +188,7 @@ void executeLinePipe(char * passedMyargv[BUFFERSIZE], int passedMyargc, int pos)
             exit(0);
         }
         else if (id == 0) {
-            //        printf("In parent\n");
+            //        printf("In second child\n");
             close(1);
             dup(pipe_fd[1]);
             close(pipe_fd[0]);
@@ -198,6 +198,7 @@ void executeLinePipe(char * passedMyargv[BUFFERSIZE], int passedMyargc, int pos)
         }
         else
         {
+            //        printf("In parent waiting for completetion\n");
             close(pipe_fd[0]);
             close(pipe_fd[1]);
             waitpid(id, &status, 0);
