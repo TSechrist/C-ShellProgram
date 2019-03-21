@@ -227,15 +227,47 @@ void changeDir(char * passedmyargv[BUFFERSIZE])
     }
 }
 
+void printPrompt()
+{
+    char currdir[BUFFERSIZE];
+    int inHomeDirBool = 1;
+    char username[BUFFERSIZE];
+    getlogin_r(username, BUFFERSIZE);
+    
+    getcwd(currdir, sizeof(currdir));
+    if((int)strlen(currdir) >= (int)strlen(getenv("HOME")))
+    {
+        for(int i = 0; i < strlen(getenv("HOME")); i++)
+        {
+            if(strcmp(&currdir[i], &getenv("HOME")[i]) == 1)
+            {
+                inHomeDirBool = 0;
+            }
+        }
+    }
+    else
+    {
+        inHomeDirBool = 0;
+    }
+
+    if(inHomeDirBool)
+    {
+        char * tildedir = (currdir + strlen(getenv("HOME")));
+        printf("%s-myshell ~%s >> ", username, tildedir);
+    }
+    else
+    {
+        printf("%s-myshell %s >> ", username, currdir);
+    }
+}
+
+
 //Main function that has an endless while loop to keep gathering user input.
 //You can end the loop by typing exit. We check user input and call the
 //functions needed.
 int
 main(int argc, char** argv)
 {
-
-    char username[BUFFERSIZE];
-    getlogin_r(username, BUFFERSIZE);
 
     while(1)
     {
@@ -244,10 +276,8 @@ main(int argc, char** argv)
         int pipeBool = 0;
         char * myargv[BUFFERSIZE] = {};
         char input[BUFFERSIZE] = "";
-        char currdir[BUFFERSIZE];
-        getcwd(currdir, sizeof(currdir));
 
-        printf("%s-myshell %s >> ", username, currdir);
+        printPrompt();
         fgets(input, BUFFERSIZE, stdin);
         strtok(input, "\n");
 
