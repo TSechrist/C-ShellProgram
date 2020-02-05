@@ -1,8 +1,6 @@
-# CSC 415 - Project 3 - My Shell
+# CSC 415 - My Shell
 
 ## Student Name: Thomas Sechrist
-
-## Student ID: 918679091
 
 ## Build Instructions:
 ### This project can be built with a simple 'make'
